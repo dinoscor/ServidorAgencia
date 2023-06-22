@@ -2,7 +2,7 @@
 
 ## Conectar a servidor MySQL - 16:19
 
-```
+``` Console
 mysql -u root -p
 ```
 
@@ -37,6 +37,7 @@ create table usuarios
 ```
 
 ## Tabla categorias - 16:35
+
 ``` MySQL
 create table categorias
 ( idCategoria int unsigned not null auto_increment primary key,
@@ -45,6 +46,7 @@ create table categorias
 ```
 
 ## Tabla productos - 16:36
+
 ``` MySQL
 create table productos
 ( idProducto int unsigned not null auto_increment primary key,
@@ -58,6 +60,7 @@ create table productos
 ```
 
 ## Insertart roles - 16:37
+
 ``` MySQL
 insert into roles values
   (Default, "admin"),
@@ -65,10 +68,12 @@ insert into roles values
 ```
 
 ## Documentación sequelize - 16:52
-(https://sequelize.org/docs/v6/getting-started/)
+
+[Documentación de Sequelize](https://sequelize.org/docs/v6/getting-started/)
 
 ## Instalación de dependencias - 16:54
-```
+
+``` Console
 npm install sequelize
 npm install --save-dev @types/sequelize
 npm install mysql2
@@ -78,7 +83,10 @@ npm install express-validator
 ```
 
 ## .env - 17:03
+
+``` Console
 PORT=3000
 DB_NAME=almacen
 DB_USER=root
 DB_PASSWORD=123456
+```
