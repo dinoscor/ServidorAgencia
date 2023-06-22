@@ -1,20 +1,24 @@
-import express, { NextFunction } from 'express';
+import express from 'express';
 import { Request, Response, Express } from 'express';
 import cors from 'cors';
+import { testConnection } from './database/config';
 // Instanciamos express
-const app: Express = express();
+const server: Express = express();
 const port = process.env.PORT || 3000;
 
 // Middlewares
-app.use(express.static('public'));
-app.use(cors());
-app.use(express.json());
+server.use(express.static('public'));
+server.use(cors());
+server.use(express.json());
 
-app.get('/api', (req: Request, res: Response) => {
+// Base de datos
+testConnection();
+
+server.get('/api', (req: Request, res: Response) => {
   res.send('<h1>Hola mundo</h1>');
 });
 
 // Puesta en marcha
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
