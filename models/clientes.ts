@@ -7,6 +7,7 @@ interface ClienteAttributes {
 	poblacion: string;
 	telefono: string;
 }
+
 export const Cliente = db.define<Model<ClienteAttributes>>(
 	"Cliente",
 	{

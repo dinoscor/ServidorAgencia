@@ -3,21 +3,21 @@ import { db } from "../database/config";
 import { Mayorista } from "./mayoristas";
 
 interface ViajesAttributes {
-idviaje: number;
-duracion: number;
-nombre: string;
-precio: number;
-idmayorista: number;
+	idviaje?: number;
+	duracion: number;
+	nombre: string;
+	precio: number;
+	idmayorista: number;
 }
 
 export const Viaje = db.define<Model<ViajesAttributes>>(
 	"Viaje",
 	{
 		idviaje: {
-type: DataTypes.INTEGER.UNSIGNED,
-allowNull: false,
-autoIncrement: true,
-primaryKey: true
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false,
+			autoIncrement: true,
+			primaryKey: true
 		},
 		duracion: {
 			type: DataTypes.TINYINT,
@@ -46,4 +46,4 @@ Viaje.hasMany(Mayorista, {
 	foreignKey: 'viajes_idmayorista'
 });
 
-Mayorista.belongsTo(Viaje, {foreignKey: 'viajes_idmayorista'});
+Mayorista.belongsTo(Viaje, { foreignKey: 'viajes_idmayorista' });

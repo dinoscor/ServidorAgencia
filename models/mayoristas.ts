@@ -8,6 +8,7 @@ interface MayoristaAttributes {
 	direccion: string;
 	contacto: string;
 }
+
 export const Mayorista = db.define<Model<MayoristaAttributes>>(
 	"Mayorista",
 	{
@@ -21,7 +22,6 @@ export const Mayorista = db.define<Model<MayoristaAttributes>>(
 			type: DataTypes.STRING,
 			allowNull: true
 		},
-		
 		telefono: {
 			type: DataTypes.STRING,
 			allowNull: true

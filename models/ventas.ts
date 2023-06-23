@@ -4,11 +4,11 @@ import { Cliente } from "./clientes";
 import { Viaje } from "./viajes";
 
 interface VentasAttributes {
-	idventa: number;
+	idventa?: number;
 	idcliente: number;
-fechasalida: Date;
-idviaje: number;
-segurocancelacion: boolean;
+	fechasalida: Date;
+	idviaje: number;
+	segurocancelacion: boolean;
 }
 
 const Venta = db.define<Model<VentasAttributes>>(
@@ -47,9 +47,11 @@ Venta.hasMany(Cliente, {
 	foreignKey: 'ventas_idcliente'
 });
 
-Cliente.belongsTo(Venta, {foreignKey: 'ventas_idcliente'});
+Cliente.belongsTo(Venta, { foreignKey: 'ventas_idcliente' });
+
 Venta.hasMany(Viaje, {
 	sourceKey: 'idviaje',
 	foreignKey: 'ventas_idviaje'
 });
-Viaje.belongsTo(Venta, {foreignKey: 'ventas_idviaje'});
+
+Viaje.belongsTo(Venta, { foreignKey: 'ventas_idviaje' });
