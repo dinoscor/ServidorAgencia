@@ -1,4 +1,4 @@
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { db } from "../database/config";
 
 interface ClienteAttributes {
@@ -7,38 +7,29 @@ interface ClienteAttributes {
 	poblacion: string;
 	telefono: string;
 }
-
-interface ClienteCreationAttributes
-	extends Optional<ClienteAttributes, "idcliente"> {}
-
-// Al modelo le pasamos los atributos, los atributos de creación y los atributos timestamp de creación automática (en este caso no los tiene)
-interface ClienteInstance
-	extends Model<ClienteAttributes, ClienteCreationAttributes>,
-		ClienteAttributes {}
-
-export const Cliente = db.define<ClienteInstance>(
+export const Cliente = db.define<Model<ClienteAttributes>>(
 	"Cliente",
 	{
 		idcliente: {
 			allowNull: false,
 			autoIncrement: true,
 			primaryKey: true,
-			type: DataTypes.INTEGER.UNSIGNED,
+			type: DataTypes.INTEGER.UNSIGNED
 		},
 		nombre: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: false
 		},
 		poblacion: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: false
 		},
 		telefono: {
 			type: DataTypes.STRING,
-			allowNull: false,
-		},
+			allowNull: false
+		}
 	},
 	{
-		tableName: "clientes",
+		tableName: 'clientes'
 	}
 );
