@@ -1,44 +1,49 @@
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { db } from "../database/config";
+import { Mayorista } from "./mayoristas";
 
-interface ClienteAttributes {
-	idcliente?: number;
-	nombre: string;
-	poblacion: string;
-	telefono: string;
+interface ViajesAttributes {
+idviaje: number;
+duracion: number;
+nombre: string;
+precio: number;
+idmayorista: number;
 }
 
-interface ClienteCreationAttributes
-	extends Optional<ClienteAttributes, "idcliente"> {}
-
-// Al modelo le pasamos los atributos, los atributos de creación y los atributos timestamp de creación automática (en este caso no los tiene)
-interface ClienteInstance
-	extends Model<ClienteAttributes, ClienteCreationAttributes>,
-		ClienteAttributes {}
-
-export const Cliente = db.define<ClienteInstance>(
-	"Cliente",
+export const Viaje = db.define<Model<ViajesAttributes>>(
+	"Viaje",
 	{
-		idcliente: {
-			allowNull: false,
-			autoIncrement: true,
-			primaryKey: true,
-			type: DataTypes.INTEGER.UNSIGNED,
+		idviaje: {
+type: DataTypes.INTEGER.UNSIGNED,
+allowNull: false,
+autoIncrement: true,
+primaryKey: true
+		},
+		duracion: {
+			type: DataTypes.TINYINT,
+			allowNull: true
 		},
 		nombre: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: true
 		},
-		poblacion: {
-			type: DataTypes.STRING,
-			allowNull: false,
+		precio: {
+			type: DataTypes.DECIMAL,
+			allowNull: true
 		},
-		telefono: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
+		idmayorista: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: true
+		}
 	},
 	{
-		tableName: "clientes",
+		tableName: 'viajes'
 	}
 );
+
+Viaje.hasMany(Mayorista, {
+	sourceKey: 'idmayorista',
+	foreignKey: 'viajes_idmyorista'
+});
+
+Mayorista.belongsTo(Viaje, {foreignKey: 'viajes_idmayorista'});
