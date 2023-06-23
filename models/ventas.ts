@@ -1,44 +1,55 @@
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { db } from "../database/config";
+import { Cliente } from "./clientes";
+import { Viaje } from "./viajes";
 
-interface ClienteAttributes {
-	idcliente?: number;
-	nombre: string;
-	poblacion: string;
-	telefono: string;
+interface VentasAttributes {
+	idventa: number;
+	idcliente: number;
+fechasalida: Date;
+idviaje: number;
+segurocancelacion: boolean;
 }
 
-interface ClienteCreationAttributes
-	extends Optional<ClienteAttributes, "idcliente"> {}
-
-// Al modelo le pasamos los atributos, los atributos de creación y los atributos timestamp de creación automática (en este caso no los tiene)
-interface ClienteInstance
-	extends Model<ClienteAttributes, ClienteCreationAttributes>,
-		ClienteAttributes {}
-
-export const Cliente = db.define<ClienteInstance>(
-	"Cliente",
+const Venta = db.define<Model<VentasAttributes>>(
+	"Venta",
 	{
-		idcliente: {
+		idventa: {
+			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false,
 			autoIncrement: true,
-			primaryKey: true,
+			primaryKey: true
+		},
+		idcliente: {
 			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
 		},
-		nombre: {
-			type: DataTypes.STRING,
-			allowNull: false,
+		fechasalida: {
+			type: DataTypes.DATE,
+			allowNull: true
 		},
-		poblacion: {
-			type: DataTypes.STRING,
-			allowNull: false,
+		idviaje: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
 		},
-		telefono: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
+		segurocancelacion: {
+			type: DataTypes.BOOLEAN,
+			allowNull: true
+		}
 	},
 	{
-		tableName: "clientes",
+		tableName: 'ventas'
 	}
 );
+
+Venta.hasMany(Cliente, {
+	sourceKey: 'idcliente',
+	foreignKey: 'ventas_idcliente'
+});
+
+Cliente.belongsTo(Venta, {foreignKey: 'ventas_idcliente'});
+Venta.hasMany(Viaje, {
+	sourceKey: 'idviaje',
+	foreignKey: 'ventas_idviaje'
+});
+Viaje.belongsTo(Venta, {foreignKey: 'ventas_idviaje'});

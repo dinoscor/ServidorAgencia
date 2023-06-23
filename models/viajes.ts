@@ -43,7 +43,7 @@ primaryKey: true
 
 Viaje.hasMany(Mayorista, {
 	sourceKey: 'idmayorista',
-	foreignKey: 'viajes_idmyorista'
+	foreignKey: 'viajes_idmayorista'
 });
 
 Mayorista.belongsTo(Viaje, {foreignKey: 'viajes_idmayorista'});
