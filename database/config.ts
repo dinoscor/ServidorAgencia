@@ -11,7 +11,7 @@ export const db = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, proc
   }
 });
 
-export const testConnection = async () => {
+export const dbConnection = async () => {
   try {
     await db.authenticate();
     console.log('Conectado correctamente a base de datos MySQL ' + process.env.DB_NAME);
