@@ -44,14 +44,14 @@ const Venta = db.define<Model<VentasAttributes>>(
 
 Venta.hasMany(Cliente, {
 	sourceKey: 'idcliente',
-	foreignKey: 'ventas_idcliente'
+	foreignKey: 'idcliente'
 });
 
-Cliente.belongsTo(Venta, { foreignKey: 'ventas_idcliente' });
+Cliente.belongsTo(Venta, { foreignKey: 'idcliente' });
 
 Venta.hasMany(Viaje, {
 	sourceKey: 'idviaje',
-	foreignKey: 'ventas_idviaje'
+	foreignKey: 'idviaje'
 });
 
-Viaje.belongsTo(Venta, { foreignKey: 'ventas_idviaje' });
+Viaje.belongsTo(Venta, { foreignKey: 'idviaje' });
