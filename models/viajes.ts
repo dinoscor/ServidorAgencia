@@ -43,7 +43,7 @@ export const Viaje = db.define<Model<ViajesAttributes>>(
 
 Viaje.hasMany(Mayorista, {
 	sourceKey: 'idmayorista',
-	foreignKey: 'viajes_idmayorista'
+	foreignKey: 'idmayorista'
 });
 
-Mayorista.belongsTo(Viaje, { foreignKey: 'viajes_idmayorista' });
+Mayorista.belongsTo(Viaje, { foreignKey: 'idmayorista' });
