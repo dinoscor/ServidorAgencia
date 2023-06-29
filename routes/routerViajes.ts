@@ -3,6 +3,7 @@ import { param, check } from "express-validator";
 import { existeMayoristaPorId, existeViajePorId } from "../helpers/dbValidators";
 import { validarCampos } from "../middlewares/validarCampos";
 import { routerMayoristas } from "./routerMayoristas";
+import { deleteViaje, getViajePorId, getViajes, insertViaje, putViaje } from "../controllers/viajesController";
 
 export const routerViajes = Router();
 routerViajes.get("/", getViajes);
@@ -17,14 +18,10 @@ routerViajes.get(
 routerViajes.post(
 	"/",
 	[
-		check("nombre", "El nombre es obligatorio").not().isEmpty().isLength({
-			max: 20,
-		} ,
+		check("nombre", "El nombre es obligatorio").notEmpty().isLength({ max: 20 }),
 		check("duracion", "La duración debe ser un número entero igual o mayor que 1").notEmpty().isInt({ min: 1 }),
 		check("precio", "El precio debe ser un número igual o mayor que 0").notEmpty().isFloat({ min: 0 }),
-		check("idmayorista").custom(existeMayoristaPorId)
-		.not()
-			.isEmpty(),
+		check("idmayorista", "El ID del mayorista es obligatorio").custom(existeMayoristaPorId).notEmpty(),
 		validarCampos,
 	],
 	insertViaje
@@ -34,14 +31,10 @@ routerViajes.put(
 	"/:id",
 	[
 		param("id").exists().isNumeric().custom(existeViajePorId),
-		check("nombre", "El nombre es obligatorio").not().isEmpty().isLength({
-			max: 20,
-		} ,
+		check("nombre", "El nombre es obligatorio").notEmpty().isLength({ max: 20 }),
 		check("duracion", "La duración debe ser un número entero igual o mayor que 1").notEmpty().isInt({ min: 1 }),
 		check("precio", "El precio debe ser un número igual o mayor que 0").notEmpty().isFloat({ min: 0 }),
-		check("idmayorista").custom(existeMayoristaPorId)
-			.not()
-			.isEmpty(),
+		check("idmayorista", "El ID del mayorista es obligatorio").custom(existeMayoristaPorId).notEmpty(),
 		validarCampos,
 	],
 	putViaje
