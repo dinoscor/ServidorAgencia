@@ -11,8 +11,8 @@ routerClientes.get('/:id',
 	getClientePorId);
 routerClientes.post('/',
 	[
-		check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-		check('poblacion', 'La población es obligatoria').not().isEmpty(),
+		check('nombre', 'El nombre es obligatorio y de 30 caracteres como mucho').not().isEmpty().isLength({max: 30}),
+		check('poblacion', 'La población es obligatoria y de 40 caracteres como mucho').not().isEmpty().isLength({max: 40}),
 		check('telefono', 'El teléfono es obligatorio').not().isEmpty().isLength({
 			min: 9,
 			max: 9
@@ -23,8 +23,8 @@ routerClientes.post('/',
 routerClientes.put('/:id',
 	[
 		param('id').exists().isNumeric().custom(existeClientePorId),
-		check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-		check('poblacion', 'La población es obligatoria').not().isEmpty(),
+		check('nombre', 'El nombre es obligatorio y de 30 caracteres como mucho').not().isEmpty().isLength({max: 30}),
+		check('poblacion', 'La población es obligatoria y de 40 caracteres como mucho').not().isEmpty().isLength({max: 40}),
 		check('telefono', 'El teléfono es obligatorio').not().isEmpty().isLength({
 			max: 9,
 			min: 9
