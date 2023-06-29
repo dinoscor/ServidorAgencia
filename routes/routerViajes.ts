@@ -1,4 +1,7 @@
-import { existeMayoristaPorId } from "../helpers/dbValidators";
+import { Router } from "express";
+import { param, check } from "express-validator";
+import { existeMayoristaPorId, existeViajePorId } from "../helpers/dbValidators";
+import { validarCampos } from "../middlewares/validarCampos";
 import { routerMayoristas } from "./routerMayoristas";
 
 export const routerViajes = Router();
