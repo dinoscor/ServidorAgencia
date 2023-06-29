@@ -3,6 +3,11 @@ import { Request, Response, Express } from 'express';
 import cors from 'cors';
 import { dbConnection } from './database/config';
 import { routerClientes } from './routes/routerClientes';
+import { routerMayoristas } from './routes/routerMayoristas';
+import { routerViajes } from './routes/routerViajes';
+import { routerVentas } from './routes/routerVentas';
+import { routerUsuarios } from './routes/routerUsuarios';
+import { routerAuth } from './routes/routerAuth';
 // Instanciamos express
 const server: Express = express();
 const port = process.env.PORT || 3000;
@@ -16,6 +21,11 @@ server.use(express.json());
 dbConnection();
 
 server.use('/api/clientes', routerClientes);
+server.use('/api/mayoristas', routerMayoristas);
+server.use('/api/viajes', routerViajes);
+server.use('/api/ventas', routerVentas);
+server.use('/api/usuarios', routerUsuarios);
+server.use('/api/auth', routerAuth);
 
 // Puesta en marcha
 server.listen(port, () => {
