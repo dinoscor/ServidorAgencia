@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { deleteCliente, getClientePorId, getClientes, insertCliente, putCliente } from "../controllers/clientesController";
 import { check, param } from "express-validator";
-import { existeClientePorId } from "../helpers/dbValidators";
 import { validarCampos } from "../middlewares/validarCampos";
+import { existeClientePorId } from "../helpers/dbValidators";
 
 export const routerClientes = Router();
 routerClientes.get('/', getClientes);
