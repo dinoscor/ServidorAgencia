@@ -1,7 +1,6 @@
 # Hoja de ruta
 
 - Hacer las rutas de viajes y ventas.
-- Crear ambos modelos.
 - Controlador authController.
 - Ruta routerAuth.
 - middlewares para validarJWT y esAdminRol.
