@@ -11,47 +11,47 @@ interface VentasAttributes {
 	segurocancelacion: boolean;
 }
 
-const Venta = db.define<Model<VentasAttributes>>(
+export const Venta = db.define<Model<VentasAttributes>>(
 	"Venta",
 	{
 		idventa: {
 			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false,
 			autoIncrement: true,
-			primaryKey: true
+			primaryKey: true,
 		},
 		idcliente: {
 			type: DataTypes.INTEGER.UNSIGNED,
-			allowNull: false
+			allowNull: false,
 		},
 		fechasalida: {
 			type: DataTypes.DATE,
-			allowNull: true
+			allowNull: true,
 		},
 		idviaje: {
 			type: DataTypes.INTEGER.UNSIGNED,
-			allowNull: false
+			allowNull: false,
 		},
 		segurocancelacion: {
 			type: DataTypes.BOOLEAN,
-			allowNull: true
-		}
+			allowNull: true,
+		},
 	},
 	{
-		tableName: 'ventas'
+		tableName: "ventas",
 	}
 );
 
 Venta.hasMany(Cliente, {
-	sourceKey: 'idcliente',
-	foreignKey: 'idcliente'
+	sourceKey: "idcliente",
+	foreignKey: "idcliente",
 });
 
-Cliente.belongsTo(Venta, { foreignKey: 'idcliente' });
+Cliente.belongsTo(Venta, { foreignKey: "idcliente" });
 
 Venta.hasMany(Viaje, {
-	sourceKey: 'idviaje',
-	foreignKey: 'idviaje'
+	sourceKey: "idviaje",
+	foreignKey: "idviaje",
 });
 
-Viaje.belongsTo(Venta, { foreignKey: 'idviaje' });
+Viaje.belongsTo(Venta, { foreignKey: "idviaje" });
