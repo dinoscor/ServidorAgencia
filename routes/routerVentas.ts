@@ -3,6 +3,7 @@ import { deleteVenta, getVentaPorId, getVentas, insertVenta, putVenta } from "..
 import { check, param } from "express-validator";
 import { existeClientePorId, existeVentaPorId, existeViajePorId } from "../helpers/dbValidators";
 import { validarCampos } from "../middlewares/validarCampos";
+import { esAdminRol } from "../middlewares/validarRoles";
 
 export const routerVentas = Router();
 routerVentas.get('/', getVentas);
@@ -36,6 +37,7 @@ putVenta
 routerVentas.delete('/:id',
 [
 	param('id').exists().isInt().custom(existeVentaPorId),
+	esAdminRol,
 	validarCampos
 ],
 deleteVenta
