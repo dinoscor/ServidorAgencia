@@ -14,7 +14,7 @@ routerViajes.get(
 	[
 		param("id").exists().isNumeric().custom(existeViajePorId),
 		generarJWT,
-		validarCampos,
+		validarCampos
 	],
 	getViajePorId
 );
@@ -26,7 +26,7 @@ routerViajes.post(
 		check("precio", "El precio debe ser un número igual o mayor que 0").notEmpty().isFloat({ min: 0 }),
 		check("idmayorista", "El ID del mayorista es obligatorio").custom(existeMayoristaPorId).notEmpty(),
 		generarJWT,
-		validarCampos,
+		validarCampos
 	],
 	insertViaje
 );
@@ -40,7 +40,7 @@ routerViajes.put(
 		check("precio", "El precio debe ser un número igual o mayor que 0").notEmpty().isFloat({ min: 0 }),
 		check("idmayorista", "El ID del mayorista es obligatorio").custom(existeMayoristaPorId).notEmpty(),
 		generarJWT,
-		validarCampos,
+		validarCampos
 	],
 	putViaje
 );
@@ -51,7 +51,7 @@ routerViajes.delete(
 		param("id").exists().isNumeric().custom(existeViajePorId),
 		generarJWT,
 		esAdminRol,
-		validarCampos,
+		validarCampos
 	],
 	deleteViaje
 );

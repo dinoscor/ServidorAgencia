@@ -1,11 +1,9 @@
-// Ruta: /api/usuarios
-import { Router } from 'express';
-import { getUsuarios, getUsuarioPorId, insertUsuario, deleteUsuario } from '../controllers/usuariosController';
-import { check, param } from 'express-validator';
-import { emailExiste, esRolValido, existeUsuarioPorId } from '../helpers/dbValidators';
-import { validarCampos } from '../middlewares/validarCampos';
+import { Router } from "express";
+import { param, check } from "express-validator";
+import { getUsuarios, getUsuarioPorId, insertUsuario, deleteUsuario } from "../controllers/usuariosController";
+import { validarCampos } from "../middlewares/validarCampos";
+import { existeUsuarioPorId, emailExiste, esRolValido } from "../helpers/dbValidators";
 
-// Router es parte de Express. Permite configurar un sistema de rutas. Lo exportamos para utilizarlo en index
 export const routerUsuarios = Router();
 
 routerUsuarios.get('/', getUsuarios);

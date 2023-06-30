@@ -2,6 +2,8 @@ import { Cliente } from "../models/clientes";
 import { Mayorista } from "../models/mayoristas";
 import { Viaje } from "../models/viajes";
 import { Venta } from "../models/ventas";
+import { Rol } from "../models/rol";
+import { Usuario } from "../models/usuario";
 
 export const existeClientePorId = async (id: number) => {
 	const cliente = await Cliente.findByPk(id);
@@ -30,3 +32,30 @@ export const existeVentaPorId = async (id: number) => {
 		throw new Error("No existe ninguna venta con este id.");
 	}
 };
+
+export const esRolValido = async (rol = 0) => {
+	const existeRol = await Rol.findByPk(rol);
+	if (!existeRol) {
+	  throw new Error(`El rol ${rol} no está registrado en la BD`);
+	}
+  };
+  
+  export const emailExiste = async (email = '') => {
+	const existeEmail = await Usuario.findOne({
+	  where: {
+		email: email
+	  }
+	});
+  
+	if (existeEmail) {
+	  throw new Error(`El email: ${email}, ya está registrado`);
+	}
+  };
+  
+  export const existeUsuarioPorId = async (id: number) => {
+	// Verificar si el id existe
+	const usuario = await Usuario.findByPk(id);
+	if (!usuario) {
+	  throw new Error(`El id no existe ${id}`);
+	}
+  };
