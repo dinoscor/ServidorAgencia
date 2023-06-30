@@ -3,6 +3,7 @@ import { deleteCliente, getClientePorId, getClientes, insertCliente, putCliente 
 import { check, param } from "express-validator";
 import { validarCampos } from "../middlewares/validarCampos";
 import { existeClientePorId } from "../helpers/dbValidators";
+import { esAdminRol } from "../middlewares/validarRoles";
 
 export const routerClientes = Router();
 routerClientes.get('/', getClientes);
@@ -33,5 +34,5 @@ routerClientes.put('/:id',
 	],
 	putCliente);
 routerClientes.delete('/:id',
-	[param('id').exists().isNumeric().custom(existeClientePorId), validarCampos],
+	[param('id').exists().isNumeric().custom(existeClientePorId), esAdminRol, validarCampos],
 	deleteCliente);
