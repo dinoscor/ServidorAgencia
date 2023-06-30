@@ -31,5 +31,5 @@ server.use('/api/auth', routerAuth);
 
 // Puesta en marcha
 server.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Servidor de la agencia escuchando en el puerto ${port}.`);
 });
