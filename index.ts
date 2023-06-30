@@ -22,10 +22,10 @@ server.use(express.json());
 // Base de datos
 dbConnection();
 
-server.use('/api/clientes', routerClientes);
-server.use('/api/mayoristas', routerMayoristas);
+server.use('/api/clientes', [validarJWT], routerClientes);
+server.use('/api/mayoristas', [validarJWT], routerMayoristas);
 server.use('/api/viajes', routerViajes);
-server.use('/api/ventas', routerVentas);
+server.use('/api/ventas', [validarJWT], routerVentas);
 server.use('/api/usuarios', [validarJWT, esAdminRol], routerUsuarios);
 server.use('/api/auth', routerAuth);
 
