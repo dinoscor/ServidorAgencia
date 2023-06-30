@@ -9,6 +9,7 @@ import {
 import { check, param } from "express-validator";
 import { existeMayoristaPorId } from "../helpers/dbValidators";
 import { validarCampos } from "../middlewares/validarCampos";
+import { esAdminRol } from "../middlewares/validarRoles";
 
 export const routerMayoristas = Router();
 routerMayoristas.get("/", getMayoristas);
@@ -65,6 +66,7 @@ routerMayoristas.delete(
 	"/:id",
 	[
 		param("id").exists().isNumeric().custom(existeMayoristaPorId),
+		esAdminRol,
 		validarCampos,
 	],
 	deleteMayorista
