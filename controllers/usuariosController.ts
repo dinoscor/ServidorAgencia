@@ -5,9 +5,7 @@ import bcryptjs from 'bcryptjs';
 export const getUsuarios = async (req: Request, res: Response) => {
   try {
     const usuarios = await Usuario.findAll();
-    res.status(200).json({
-      usuarios
-    });
+    res.status(200).json(usuarios);
   } catch (error) {
     console.log(error);
     res.status(500).json({
