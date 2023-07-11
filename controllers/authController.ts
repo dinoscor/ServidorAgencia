@@ -29,8 +29,10 @@ export const login = async (req: Request, res: Response) => {
     }
 
     // Generamos el JWT. El idUsuario es propiedad opcional en la interface, por eso lo comprobamos antes, si no da error
-    const token = usuario.dataValues.idUsuario && (await generarJWT(usuario.dataValues.idUsuario, usuario.dataValues.roles_idRol));
+    const token =
+      usuario.dataValues.idUsuario && (await generarJWT(usuario.dataValues.idUsuario, usuario.dataValues.roles_idRol));
 
+    await usuario.update({ ...usuario.dataValues, token: token as string });
     res.status(200).json({
       usuario: usuario.dataValues.email,
       token
