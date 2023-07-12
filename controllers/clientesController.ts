@@ -69,6 +69,7 @@ export const deleteCliente = async (req: Request, res: Response) => {
 			});
 		}
 		const cliente = await Cliente.findByPk(id);
+		cliente?.destroy();
 		res.status(200).json(cliente);
 	} catch (error) {
 		console.log(error);
