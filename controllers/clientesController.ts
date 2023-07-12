@@ -1,5 +1,6 @@
-import { Request, Response } from 'express';
-import { Cliente } from "../models/clientes"
+import { Request, Response } from "express";
+import { Cliente } from "../models/clientes";
+import { Venta } from "../models/ventas";
 
 export const getClientes = async (req: Request, res: Response) => {
 	try {
@@ -7,21 +8,21 @@ export const getClientes = async (req: Request, res: Response) => {
 		res.status(200).json(clientes);
 	} catch (error) {
 		res.status(500).json({
-			msg: 'No se ha podido acceder a los datos'
+			msg: "No se ha podido acceder a los datos",
 		});
-	};
+	}
 };
 
 export const getClientePorId = async (req: Request, res: Response) => {
 	const { id } = req.params;
 	try {
 		const cliente = await Cliente.findByPk(id);
-			res.status(200).json(cliente);
+		res.status(200).json(cliente);
 	} catch (error) {
 		res.status(500).json({
-			msg: 'No se ha podido acceder a los datos'
+			msg: "No se ha podido acceder a los datos",
 		});
-	};
+	}
 };
 
 export const insertCliente = async (req: Request, res: Response) => {
@@ -30,14 +31,14 @@ export const insertCliente = async (req: Request, res: Response) => {
 		const cliente = await Cliente.create({
 			nombre,
 			poblacion,
-			telefono
+			telefono,
 		});
 		res.status(201).json(cliente);
 	} catch (error) {
 		res.status(500).json({
-			msg: 'Contacte con el administrador'
+			msg: "Contacte con el administrador",
 		});
-	};
+	}
 };
 
 export const putCliente = async (req: Request, res: Response) => {
@@ -49,14 +50,30 @@ export const putCliente = async (req: Request, res: Response) => {
 		res.status(200).json(cliente);
 	} catch (error) {
 		res.status(500).json({
-			msg: 'Contacte con el administrador.'
+			msg: "Contacte con el administrador.",
 		});
-	};
+	}
 };
 
 export const deleteCliente = async (req: Request, res: Response) => {
-	const {id} = req.params;
-	const cliente = await Cliente.findByPk(id);
-	await cliente?.destroy();
-	res.status(200).json(cliente);
+	try {
+		const { id } = req.params;
+		const ventas = await Venta.findOne({
+			where: {
+				idcliente: id,
+			},
+		});
+		if (ventas) {
+			res.status(400).json({
+				msg: "Este cliente tiene ventas asociadas y no se puede eliminar",
+			});
+		}
+		const cliente = await Cliente.findByPk(id);
+		res.status(200).json(cliente);
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			msg: "Hable con el administrador",
+		});
+	}
 };
