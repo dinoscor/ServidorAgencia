@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Mayorista } from "../models/mayoristas";
+import { Viaje } from "../models/viajes";
 
 export const getMayoristas = async (req: Request, res: Response) => {
 	try {
@@ -56,8 +57,25 @@ export const putMayorista = async (req: Request, res: Response) => {
 };
 
 export const deleteMayorista = async (req: Request, res: Response) => {
-	const { id } = req.params;
-	const mayorista = await Mayorista.findByPk(id);
-	await mayorista?.destroy();
-	res.status(200).json(mayorista);
+	try {
+		const { id } = req.params;
+		const viajes = await Viaje.findOne({
+			where: {
+				idmayorista: id,
+			},
+		});
+		if (viajes) {
+			res.status(400).json({
+				msg: "Este mayorista tiene viajes asociados y no se puede eliminar",
+			});
+		}
+		const mayorista = await Mayorista.findByPk(id);
+		mayorista?.destroy();
+		res.status(200).json(mayorista);
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			msg: "Hable con el administrador",
+		});
+	}
 };
