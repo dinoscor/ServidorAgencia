@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Viaje } from "../models/viajes";
+import { Venta } from "../models/ventas";
 
 export const getViajes = async (req: Request, res: Response) => {
 	try {
@@ -56,8 +57,25 @@ export const putViaje = async (req: Request, res: Response) => {
 };
 
 export const deleteViaje = async (req: Request, res: Response) => {
-	const { id } = req.params;
-	const viaje = await Viaje.findByPk(id);
-	await viaje?.destroy();
-	res.status(200).json(viaje);
+	try {
+		const { id } = req.params;
+		const ventas = await Venta.findOne({
+			where: {
+				idviaje: id,
+			},
+		});
+		if (ventas) {
+			res.status(400).json({
+				msg: "Este viaje tiene ventas asociadas y no se puede eliminar",
+			});
+		}
+		const viaje = await Viaje.findByPk(id);
+		viaje?.destroy();
+		res.status(200).json(viaje);
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			msg: "Hable con el administrador",
+		});
+	}
 };
