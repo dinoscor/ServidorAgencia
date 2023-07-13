@@ -16,26 +16,26 @@ export const Mayorista = db.define<Model<MayoristaAttributes>>(
 			allowNull: false,
 			autoIncrement: true,
 			primaryKey: true,
-			type: DataTypes.INTEGER.UNSIGNED
+			type: DataTypes.INTEGER.UNSIGNED,
 		},
 		nombre: {
-			type: DataTypes.STRING,
-			allowNull: true
+			type: DataTypes.STRING(20),
+			allowNull: true,
 		},
 		telefono: {
-			type: DataTypes.STRING,
-			allowNull: true
+			type: DataTypes.STRING(9),
+			allowNull: true,
 		},
 		direccion: {
-			type: DataTypes.STRING,
-			allowNull: true
+			type: DataTypes.STRING(50),
+			allowNull: true,
 		},
 		contacto: {
-			type: DataTypes.STRING,
-			allowNull: true
-		}
+			type: DataTypes.STRING(20),
+			allowNull: true,
+		},
 	},
 	{
-		tableName: 'mayoristas'
+		tableName: "mayoristas",
 	}
 );
